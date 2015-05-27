@@ -2,10 +2,9 @@
 <package version="0.0.3" uuid="flightrecorder">
  <services>
   <!-- <service autorun="false" execStart="./run.sh" name="alrosbridge"/> -->
-  <service autorun="true" execStart="run.sh" name="flightrecorder"/>
+  <service autorun="true" execStart="./run.sh" name="flightrecorder"/>
  </services>
- <executableFiles>
+ <!--<executableFiles>
   <file path="./run.sh"/>
-  <!--  <file path="bin/alros_bin"/> -->
- </executableFiles>
+ </executableFiles> -->
 </package>

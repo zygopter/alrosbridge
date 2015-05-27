@@ -32,6 +32,8 @@
 
 #include <stdlib.h>
 
+#include <boost/algorithm/string.hpp>
+
 namespace alros
 {
 namespace ros_env
@@ -53,6 +55,24 @@ static std::string getROSIP(std::string network_interface)
 static std::string getPrefix()
 {
   return "alrosbridge";
+}
+
+static std::string getCMakePrefixPath()
+{
+    return getenv( "CMAKE_PREFIX_PATH" );
+}
+
+static void adjustSDKPrefix()
+{
+  std::string cmake_prefix = alros::ros_env::getCMakePrefixPath();
+  std::vector<std::string> prefixes;
+  boost::split( prefixes, cmake_prefix, boost::is_any_of(":") );
+
+  for (size_t i=0; i<prefixes.size(); i++)
+  {
+    std::cout << "going to add: " << prefixes[i] << std::endl;
+    qi::path::detail::addOptionalSdkPrefix( prefixes[i].c_str() );
+  }
 }
 
 } // ros_env

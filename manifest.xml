@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package version="0.0.3" uuid="flightrecorder">
+<package version="0.0.4" uuid="flightrecorder">
  <services>
   <!-- <service autorun="false" execStart="./run.sh" name="alrosbridge"/> -->
   <service autorun="true" execStart="./run.sh" name="flightrecorder"/>

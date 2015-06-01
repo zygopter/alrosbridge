@@ -59,7 +59,11 @@ static std::string getPrefix()
 
 static std::string getCMakePrefixPath()
 {
+  char *cMakePrefixPath = getenv( "CMAKE_PREFIX_PATH" );
+  if (cMakePrefixPath != NULL) {
     return getenv( "CMAKE_PREFIX_PATH" );
+  }
+  return "";
 }
 
 static void adjustSDKPrefix()

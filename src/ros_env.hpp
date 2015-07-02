@@ -48,8 +48,12 @@ static std::string getROSIP(std::string network_interface)
   if (network_interface.empty())
     network_interface = "eth0";
   typedef std::map< std::string, std::vector<std::string> > Map_IP;
-  static const std::string ip = static_cast<Map_IP>(qi::os::hostIPAddrs())[network_interface][0];
-  return ip;
+  Map_IP map_ip = static_cast<Map_IP>(qi::os::hostIPAddrs());
+  if (map_ip.find(network_interface) != map_ip.end()) {
+    static const std::string ip = map_ip[network_interface][0];
+    return ip;
+  }
+  return "";
 }
 
 static std::string getPrefix()
@@ -81,7 +85,11 @@ static void setMasterURI( const std::string& uri, const std::string& network_int
 
 static std::string getMasterURI( )
 {
-  return getenv("ROS_MASTER_URI");
+  char *cMakePrefixPath = getenv( "ROS_MASTER_URI" );
+  if (cMakePrefixPath != NULL) {
+    return getenv( "ROS_MASTER_URI" );
+  }
+  return "";
 }
 
 static std::string getCMakePrefixPath()

@@ -106,7 +106,7 @@ namespace recorder
     }
   }
 
-  std::string GlobalRecorder::stopRecord(const std::string& robot_ip) {
+  std::string GlobalRecorder::stopRecord() {
     boost::mutex::scoped_lock stopLock( _processMutex );
     if (_isStarted) {
       _bag.close();
@@ -115,16 +115,6 @@ namespace recorder
       std::stringstream message;
       message << _nameBag;
       std::cout << YELLOW << "The bag " << BOLDCYAN << _nameBag << RESETCOLOR << YELLOW << " is closed" << RESETCOLOR << std::endl;
-
-      // Check if we are on a robot
-      char* current_path;
-      current_path = getenv("HOME");
-      std::string cp = current_path;
-      if (!(cp.find("nao") == std::string::npos)) {
-        std::cout << BOLDRED << "To download this bag on your computer:" << RESETCOLOR << std::endl
-                     << GREEN << "\t$ scp nao@" << robot_ip << ":" << _nameBag << " <LOCAL_PATH>" << RESETCOLOR
-                        << std::endl;
-      }
 
       _nameBag.clear();
       return message.str();
